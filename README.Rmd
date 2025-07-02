@@ -189,4 +189,15 @@ devtools::install_version("readxl", version = "1.4.5", repos = "http://cran.us.r
 
 ```
 
+## renv version control
+
+Install `renv` (if not already installed):
+```{r}
+install.packages("renv")
+```
+
+Restore the renv locked file-encoded package and R versions automatically by running this code
+```{r}
+renv::restore()
+```
  

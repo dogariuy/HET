@@ -5,6 +5,12 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+```{r activating renv each time the project is opened}
+renv::activate()
+
+# renv::restore() # if you need to go back to locked file versions
+```
+
 # 1. Install and load libraries
 ```{r loading libraries}
 library(readxl)
@@ -21,9 +27,7 @@ library(docstring)
 library(renv)
 ```
 
-```{r updating renv if needed}
-renv::snapshot()
-```
+
 
 # 2. Set directories
 ```{r setting directories}
@@ -42,6 +46,7 @@ setwd("results")
 output_directory <- getwd()
 setwd(primary_directory)
 ```
+
 # 3. Import excel files
 ```{r importing files,warning=FALSE}
 
