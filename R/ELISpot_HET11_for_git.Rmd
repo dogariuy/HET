@@ -21,9 +21,8 @@ library(docstring)
 library(renv)
 ```
 
-```{r trying out renv}
-renv::init()
-
+```{r updating renv if needed}
+renv::snapshot()
 ```
 
 # 2. Set directories
