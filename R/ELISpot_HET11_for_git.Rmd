@@ -7,7 +7,6 @@ output: html_document
 
 # 1. Install and load libraries
 ```{r loading libraries}
-# Load all required packages
 library(readxl)
 library(ggplot2)
 library(dplyr)
@@ -18,23 +17,27 @@ library(writexl)
 library(viridis)
 library(lintr)
 library(formatR)
+library(docstring)
+library(renv)
+```
+
+```{r trying out renv}
+renv::init()
+
 ```
 
 # 2. Set directories
 ```{r setting directories}
-# Set Primary Directory
 getwd()
 setwd("../") # one folder up
 primary_directory <- getwd()
 primary_directory
 
-# Set 'input' directory
 setwd(primary_directory)
 setwd("./data/raw") # one dot means current folder
 input_directory <- getwd()
 setwd(primary_directory)
 
-# Create output directory
 setwd(primary_directory)
 setwd("results")
 output_directory <- getwd()
@@ -44,6 +47,11 @@ setwd(primary_directory)
 ```{r importing files,warning=FALSE}
 
 read_plate_data <- function (file_path, experiment_id) {
+  #' @description Read plate data from an excel with multiple sheets, where each experiment ID 
+  #' has a corresponding sheet containing ELISpot SFUs and another sheet with the
+  #' plate layout
+  #' @param x character. file path of your excel
+  #' @param y character. a vector containing the experiment ids you want to read in from the excel
     layout_var <- paste0("plate_layout_", experiment_id)
     data_var <- paste0("data_", experiment_id)
 
@@ -59,6 +67,9 @@ read_plate_data <- function (file_path, experiment_id) {
     assign(layout_var, layout_data, envir = .GlobalEnv)
     assign(data_var, data, envir = .GlobalEnv)
 }
+
+# docstring(read_plate_data) # doesn't work
+
 
 setwd(input_directory)
 file_path <- "ELISpot data for git.xlsx"

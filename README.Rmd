@@ -1,0 +1,192 @@
+---
+title: "README: HET11 ELISpot Analysis"
+author: "Yvonne Dogariu"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Overview
+
+This project contains the analysis pipeline for HET11 ELISpot data, including importing, cleaning, processing, and plotting ELISpot spot forming units (SFUs) from multiple plates and timepoints.
+
+The main goals are to:
+- Import ELISpot data from Excel files with multiple sheets
+- Annotate and clean the data
+- Calculate background-subtracted values
+- Generate summary statistics
+- Visualize results across timepoints and stimulations
+
+---
+
+# Downloading the Project from GitHub
+
+To download this project, you can clone the GitHub repository using the following command in your terminal or command prompt:
+
+```{bash}
+git clone https://github.com/dogariuy/HET.git
+```
+
+# Configuration Instructions
+
+Ensure R (version 4.0 or higher recommended) is installed.
+
+Set your working directory to the project root folder after cloning.
+
+Confirm that the directory structure includes:
+
+  data/raw/ for raw Excel input files
+  results/figures/ for output plots
+  temp/ and processed/ for intermediate and final data files
+
+# Requirements
+
+The analysis requires the following R packages:
+
+- `readxl`
+- `ggplot2`
+- `dplyr`
+- `tidyr`
+- `stringr`
+- `scales`
+- `writexl`
+- `viridis`
+- `lintr` (optional, for linting)
+- `formatR` (optional, for formatting code)
+- `docstring` (optional, for function documentation)
+
+You can install them using:
+```{r}
+install.packages(c("readxl", "ggplot2", "dplyr", "tidyr", "stringr", "scales", "writexl", "viridis"))
+# lintr, formatR, and docstring can be installed similarly if desired
+```
+
+# Operating Instructions
+
+Place your raw data Excel file (ELISpot data for git.xlsx) inside data/raw/.
+Open and run the R Markdown or R script sequentially.
+Check temp/ and processed/ folders for saved cleaned data outputs.
+Generated plots are saved as PNG files under results/figures/.
+Modify experiment IDs or file paths inside the script if analyzing new data.
+
+# File Manifest
+  data/raw/ELISpot data for git.xlsx — Raw input Excel file with multiple sheets.
+  scripts/ (optional) — Contains the R Markdown or R scripts with analysis code.
+  temp/ — Cleaned intermediate Excel outputs.
+  processed/ — Final processed datasets.
+  results/figures/ — PNG plots visualizing the ELISpot results.
+  README.Rmd — This README file.
+
+# Code overview
+
+1. Load Libraries
+Loads all necessary R packages.
+
+2. Set Directories
+Sets working directories for input, output, and main project folder.
+
+3. Import Excel Files
+Defines and uses the function read_plate_data() to read multiple sheets from the Excel file, corresponding to plate layouts and ELISpot data for each experiment ID.
+
+4. Data Wrangling and Processing
+Assigns meaningful row and column names to plate layout data.
+
+Reshapes plate data into long format with well IDs.
+
+Merges ELISpot counts with stimulation annotations and timepoints.
+
+Cleans data by removing NAs and converting variables to factors.
+
+Computes average counts per stimulation and plate.
+
+Performs background subtraction using DMSO controls.
+
+Applies a lower limit of detection (LLOD) to replace zero or negative values.
+
+Converts the data into tidy long format for plotting.
+
+5. Save Processed Data
+Writes cleaned and processed data to Excel files in appropriate folders (temp/ and processed/).
+
+6. Plotting
+Generates boxplots with individual donor points and lines showing ELISpot counts (background-subtracted and log-scaled) across different timepoints and stimulations. Plots are saved as PNG files in the results/figures/ directory.
+
+# How to run the analysis
+
+Place the Excel file "ELISpot data for git.xlsx" in the data/raw/ folder.
+
+Open the R Markdown or script file containing the analysis.
+
+Run all chunks sequentially.
+
+Processed data files will be saved in temp/ and processed/.
+
+Plots will be saved in results/figures/.
+
+# Copyright and Licensing
+© 2025 Yvonne Dogariu. All rights reserved.
+
+This project is licensed under the MIT License — see the LICENSE file in the repository for details.
+
+# Contact Information
+For questions or assistance, please contact:
+
+Yvonne Dogariu
+GitHub: https://github.com/dogariuy
+
+# Known Bugs
+The current code assumes a fixed plate layout size (8 rows × 12 columns), but
+fewer rows also work. We did not test fewer columns, but it should work.
+
+# Troubleshooting
+Ensure the Excel file has sheets named exactly as expected (<experiment_id>_layout and <experiment_id>_data).
+Use sessionInfo() in R to help diagnose package/version conflicts.
+
+# Dependencies
+## R version 4.5.1
+### To install R version 4.5.1: 
+Windows: Download the R 4.5.1 installer for Windows from https://cran.r-project.org/bin/windows/base/
+
+After installation, you can check the version of R by running the following in your R console:
+```{r}
+R.version 
+```
+
+## Operating system: Windows
+## Package versions
+ TempPackage_1.0   
+ formatR_1.14      
+ lintr_3.2.0       
+ viridis_0.6.5     
+ viridisLite_0.4.2 
+ writexl_1.5.4     
+ scales_1.4.0     
+ stringr_1.5.1     
+ tidyr_1.3.1       
+ dplyr_1.1.4       
+ ggplot2_3.5.2     
+ readxl_1.4.5    
+ 
+ 
+
+### To install packages at specified versions:
+```{r}
+# Install the devtools package (if not already installed)
+install.packages("devtools")
+library(devtools)
+
+# Install required packages at specific versions
+devtools::install_version("formatR", version = "1.14", repos = "http://cran.us.r-project.org")
+devtools::install_version("lintr", version = "3.2.0", repos = "http://cran.us.r-project.org")
+devtools::install_version("viridis", version = "0.6.5", repos = "http://cran.us.r-project.org")
+devtools::install_version("viridisLite", version = "0.4.2", repos = "http://cran.us.r-project.org")
+devtools::install_version("writexl", version = "1.5.4", repos = "http://cran.us.r-project.org")
+devtools::install_version("scales", version = "1.4.0", repos = "http://cran.us.r-project.org")
+devtools::install_version("stringr", version = "1.5.1", repos = "http://cran.us.r-project.org")
+devtools::install_version("tidyr", version = "1.3.1", repos = "http://cran.us.r-project.org")
+devtools::install_version("dplyr", version = "1.1.4", repos = "http://cran.us.r-project.org")
+devtools::install_version("ggplot2", version = "3.5.2", repos = "http://cran.us.r-project.org")
+devtools::install_version("readxl", version = "1.4.5", repos = "http://cran.us.r-project.org")
+
+```
+
+ 

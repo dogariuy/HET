@@ -1,3 +1,15 @@
+Configuration instructions
+Installation instructions
+Operating Instructions
+A file manifest (list of files included - folder tree)
+Copyright and licensing information
+Contact information of programmer
+Bugs + troubleshooting
+Credits & acknowledgements
+
+
+
+
 # My Project
 
 This project template is a demonstration for the RepCo workshop.
